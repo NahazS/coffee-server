@@ -1,13 +1,21 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = "mongodb+srv://nifazurrahman2872:bAxtLHGWc4ZmF5Nj@cluster0.1tebz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.1tebz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 const app = express()
 
 const port = process.env.PORT || 3000;
 
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:4000', // Localhost for testing
+    'https://coffee-shop-3ccb3.web.app', // Your Firebase app domain
+    'https://coffee-shop-3ccb3.firebaseapp.com/' // Alternate Firebase domain
+  ],
+  credentials: true
+}))
 app.use(express.json())
 
 
